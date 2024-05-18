@@ -6,25 +6,25 @@ import { ChangeOrderStatusDto, OrderPaginationDto } from './dto';
 
 @Controller()
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(private readonly client: OrdersService) {}
 
   @MessagePattern('createOrder')
   create(@Payload() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+    return this.client.create(createOrderDto);
   }
 
   @MessagePattern('findAllOrders')
   findAll(@Payload() orderPaginationDto: OrderPaginationDto) {
-    return this.ordersService.findAll(orderPaginationDto);
+    return this.client.findAll(orderPaginationDto);
   }
 
   @MessagePattern('findOneOrder')
   findOne(@Payload('id', ParseUUIDPipe) id: string) {
-    return this.ordersService.findOne(id);
+    return this.client.findOne(id);
   }
 
   @MessagePattern('changeOrderStatus')
   changeOrderStatus(@Payload() changeOrderStatusDto: ChangeOrderStatusDto) {
-    return this.ordersService.changeStatus(changeOrderStatusDto);
+    return this.client.changeStatus(changeOrderStatusDto);
   }
 }
